@@ -28,4 +28,10 @@ export const SidebarData = [
     icon: <FaIcons.FaPen />,
     cName: "nav-text",
   },
+  {
+    title: "WexproGrid",
+    path: "/wexprogrid",
+    icon: <FaIcons.FaPen />,
+    cName: "nav-text",
+  },
 ];

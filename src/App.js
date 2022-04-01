@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Schedule from "./pages/Schedule";
 import TaskManager from "./pages/TaskManager";
 import Notes from "./pages/Notes";
+import WexproGrid from "./pages/WexproGrid";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/rigschedule" element={<Schedule />} />
           <Route path="/taskmanager" element={<TaskManager />} />
           <Route path="/notes" element={<Notes />} />
+          <Route path="/wexprogrid" element={<WexproGrid />} />
         </Routes>
       </Router>
     </div>

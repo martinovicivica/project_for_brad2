@@ -9,7 +9,8 @@
 
 .home,
 .rigschedule,
-.taskmanager {
+.taskmanager,
+.wexprogrid {
   display: flex;
   height: 90vh;
   align-items: center;
