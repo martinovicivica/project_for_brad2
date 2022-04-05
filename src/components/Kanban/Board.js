@@ -5,16 +5,30 @@ import React, { useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import CardKB from "../Card/Card";
 import Editable from "../Editable/Editable";
+import mockRigData from "../../mockRigData";
 
 import "./Board.css";
 
 function Board() {
-  const [value, setValue] = useState("");
-  const handleChange = (e) => {
-    e.preventDefault();
-    setValue(e.target.value);
-  };
+  const [rigData, setRigData] = useState(mockRigData);
 
+  const padNameArr = Object.entries(rigData);
+
+  // console.log(padNameArr);
+
+  const filteredPadName = padNameArr.filter(function ([k, v]) {
+    return k === "Pad";
+  });
+
+  const PadName1 = Object.fromEntries(filteredPadName);
+  console.log(filteredPadName);
+
+  const padNames = rigData?.filter((data) => {
+    return {
+      id: data?.id,
+      Pad: data?.Pad,
+    };
+  });
   return (
     <Card
       className="board_top"
@@ -29,7 +43,7 @@ function Board() {
     >
       <CardContent>
         <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          {/* <Typography
+          <Typography
             className="board_top_title"
             sx={{
               fontSize: "1rem",
@@ -39,19 +53,19 @@ function Board() {
               fontWeight: "bold",
               paddingRight: "18px",
             }}
-          > */}
-          <Box component="span" sx={{ color: "#c4c3c2" }}>
-            4
-          </Box>
-          {/* </Typography> */}
+          >
+            <Box component="span" sx={{ color: "#c4c3c2" }}>
+              4
+            </Box>
+          </Typography>
           <TextField
             InputProps={{
               disableUnderline: true,
             }}
             variant="standard"
             size="small"
-            value={value}
-            onChange={handleChange}
+            value={padNames.Pad}
+            label={padNames.Pad}
           />
           <Box sx={{ paddingTop: "6px" }}>
             <FaIcons.FaEllipsisH />

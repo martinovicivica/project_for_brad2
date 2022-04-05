@@ -1,10 +1,10 @@
 import React from "react";
-import TMList from "../components/Taskmanager/TMList";
+import KBMain from "../components/Taskmanager/KBMain";
 
 function TaskManager() {
   return (
     <div className="taskmanager">
-      <TMList />
+      <KBMain />
     </div>
   );
 }

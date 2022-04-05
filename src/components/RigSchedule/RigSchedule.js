@@ -45,6 +45,7 @@ function RigSchedule() {
 
   const [editRigDataId, setEditRigDataId] = useState(null);
 
+  /////// change text fields
   const handleAddDataChange = (event) => {
     event.preventDefault();
     const fieldName = event.target.getAttribute("name");
@@ -55,7 +56,7 @@ function RigSchedule() {
 
     setAddFormData(newAddData);
   };
-
+  /////////end change text fields
   const handleEditFormChange = (event) => {
     event.preventDefault();
 
@@ -68,6 +69,7 @@ function RigSchedule() {
     setEditFormData(newFormData);
   };
 
+  //////////// submit text fields
   const handleAddDataSubmit = (event) => {
     event.preventDefault();
 
@@ -83,6 +85,8 @@ function RigSchedule() {
     const newAddRigData = [...rigData, newRigData];
     setRigData(newAddRigData);
   };
+
+  ////end of submit text fields
 
   const handleEditformSubmit = (event) => {
     event.preventDefault();
