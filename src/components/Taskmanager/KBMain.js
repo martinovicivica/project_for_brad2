@@ -1,13 +1,42 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Box } from "@mui/system";
 import { Card } from "@mui/material";
 import { CardContent } from "@mui/material";
 import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
-import emptyRigData from "../../emptyRigData";
+// import emptyRigData from "../../emptyRigData";
 import KBBoard from "./KBBoard";
 
 function KBMain() {
+  const padList = [KBBoard, KBBoard];
+  const padNames = [
+    "Whiskey Canyon 4 Pad",
+    "Canyon Creek Unit 217 Pad",
+    "Canyon Creek Unit 242 Pad",
+  ];
+  const [addPadName, setAddPadName] = useState(padNames);
+  const [boardList, setBoardList] = useState(padList);
+
+  const handleAddNewPad = (e) => {
+    e.preventDefault();
+
+    const newBoardList = [...boardList];
+    newBoardList.push(KBBoard);
+    setBoardList(newBoardList);
+  };
+
+  const handleAddPadName = (e) => {
+    e.preventDefault();
+
+    const pName = e.target.getAttribute("name");
+    const pValue = e.target.value;
+
+    const newPadName = { ...addPadName };
+    newPadName[pName] = pValue;
+
+    setAddPadName(newPadName);
+  };
+
   return (
     <Box
       sx={{
@@ -39,19 +68,22 @@ function KBMain() {
           }}
         >
           <CardContent>
-            <TextField
-              InputProps={{
-                disableUnderline: true,
-              }}
-              name="Pad"
-              type="text"
-              variant="standard"
-              placeholder="Enter Pad Name"
-              size="small"
-              sx={{ paddingTop: "22px" }}
-              // onChange={handleNameOfPad}
-            ></TextField>
-            <Button type="submit">Add Pad</Button>
+            <Box component="form" onSubmit={handleAddNewPad}>
+              <TextField
+                InputProps={{
+                  disableUnderline: true,
+                }}
+                name="Pad"
+                type="text"
+                variant="standard"
+                placeholder="Enter Pad Name"
+                size="small"
+                sx={{ paddingTop: "22px" }}
+              />
+              <Button onClick={handleAddNewPad} type="submit">
+                Add Pad
+              </Button>
+            </Box>
           </CardContent>
         </Card>
       </Box>
@@ -62,12 +94,35 @@ function KBMain() {
           display: "flex",
           flexFlow: "row wrap",
           justifyContent: "space-around",
+          alignContent: "space-around",
+          rowGap: "30px",
+          columnGap: "60px",
           padding: "20px",
         }}
       >
-        <Fragment>
-          <KBBoard />
-        </Fragment>
+        {boardList.map((KBBoard, i) => (
+          <Fragment>
+            <Card variant="outlined">
+              <CardContent>
+                <Box component="div">
+                  <TextField
+                    hiddenLabel
+                    InputProps={{
+                      disableUnderline: true,
+                    }}
+                    sx={{ paddingY: "2px" }}
+                    variant="standard"
+                    size="small"
+                    placeholder="Pad Designation"
+                    name="Pad"
+                    onChange={handleAddPadName}
+                  />
+                  <KBBoard key={i} />
+                </Box>
+              </CardContent>
+            </Card>
+          </Fragment>
+        ))}
       </Box>
     </Box>
   );

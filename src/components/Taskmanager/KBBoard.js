@@ -1,89 +1,78 @@
 import { CardContent } from "@mui/material";
-import { TextField } from "@mui/material";
+// import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { Card } from "@mui/material";
 import { Box } from "@mui/system";
-import emptyRigData from "../../emptyRigData";
-import React, { useState } from "react";
-// import KBCard from "./KBCard";
+// import emptyRigData from "../../emptyRigData";
+import React, { Fragment, useState } from "react";
+import KBCard from "./KBCard";
 
 const KBBoard = () => {
-  const [drillData, setDrillData] = useState(emptyRigData);
-  const [newPadName, setNewPadName] = useState(
-    setDrillData.id,
-    setDrillData.Pad
-  );
+  const wellList = [];
+  const [cardList, setCardList] = useState(wellList);
 
-  function handleAddPadName(e) {
+  const handleAddNewWell = (e) => {
     e.preventDefault();
-    const fieldName = e.target.getAttribute("name");
-    const fieldValue = e.target.value;
 
-    const newAddedPadName = { ...newPadName };
-    newAddedPadName[fieldName] = fieldValue;
+    const newWellList = [...cardList];
+    newWellList.push(KBCard);
+    setCardList(newWellList);
+  };
 
-    setNewPadName(newAddedPadName);
-  }
+  const handleRemoveLastWell = (e) => {
+    e.preventDefault();
+    const newWellList = [...cardList];
+    newWellList.pop();
+    setCardList(newWellList);
+  };
 
   return (
     <Card
       variant="outlined"
-      sx={{ minWidth: 290, height: "fit-content", border: "1px solid orange" }}
+      sx={{
+        minWidth: 290,
+        height: "fit-content",
+        border: "1px solid orange",
+      }}
     >
       <CardContent>
         <Box
+          component="form"
           sx={{
             display: "flex",
             flexFlow: "column nowrap",
           }}
         >
           <Box
-            component="form"
-            // key={}
-            sx={{
-              display: "flex",
-              flexFlow: "row nowrap",
-              alignItems: "flex-start",
-            }}
-          >
-            <TextField
-              InputProps={{
-                disableUnderline: true,
-              }}
-              name="Pad"
-              id="Pad"
-              type="text"
-              variant="standard"
-              placeholder="Enter a Pad Name"
-              size="small"
-              value={emptyRigData.Pad}
-              onChange={handleAddPadName}
-            ></TextField>
-            <Button
-              variant="outlined"
-              type="submit"
-              size="small"
-              color="error"
-              sx={{ marginTop: "-5px" }}
-            >
-              Edit
-            </Button>
-          </Box>
-          <Box
             sx={{
               display: "flex",
               flexFlow: "column nowrap",
               alignItems: "center",
-              paddingY: "20px",
+              // paddingY: "20px",
             }}
           >
-            {/* <KBCard />
-              <KBCard />
-              <KBCard />
-              <KBCard /> */}
+            {cardList.map((KBCard, i) => (
+              <Fragment>
+                <KBCard key={i} />
+              </Fragment>
+            ))}
           </Box>
-          <Button variant="outlined" type="submit" sx={{ marginX: "10px" }}>
+
+          <Button
+            variant="outlined"
+            type="submit"
+            sx={{ marginX: "10px", marginTop: "20px" }}
+            onClick={handleAddNewWell}
+          >
             Add Well
+          </Button>
+          <Button
+            variant="outlined"
+            type="submit"
+            sx={{ marginX: "10px", marginTop: "20px" }}
+            onClick={handleRemoveLastWell}
+          >
+            Remove Last Well
           </Button>
         </Box>
       </CardContent>
